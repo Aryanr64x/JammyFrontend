@@ -11,15 +11,20 @@ const JamPage = () => {
     const { state } = useLocation();
     const socket = useContext(socketContext);
     const auth = useContext(authContext)
-    const [body, setBody] = useState("<p>Hello people of india</p>")
+    const [body, setBody] = useState("")
     const navigate = useNavigate()
     const editorRef = useRef(null)
 
     useEffect(() => {
+        if (!state) {
+            navigate('/published')
+            return
+        }
         setBody(state.body);
+
         socket.on("tell-client", (b) => {
             console.log("The client has been recieved")
-            if(b !== body){
+            if (b !== body) {
                 setBody(b);
             }
         })
@@ -65,62 +70,66 @@ const JamPage = () => {
     return (
         <div className=" pb-8">
             <Navbar />
-            <div className="px-32 text-xl mt-12">
-                Hello Everyone! Welcome To
-                <div className="font-bold text-5xl">
-                    {state.title}
-                </div>
+            {
+                (state) ? (
+                    <div>
+                        <div className="px-32 text-xl mt-12">
+                            Hello Everyone! Welcome To
+                            <div className="font-bold text-5xl">
 
-                <div className="mt-2">
-                    Jam Created By: {
-                        (state.creator) ? (<span>{state.creator.username}</span>) : (<span>{auth.authUser.username}</span>)
-                    }
-                </div>
-            </div>
-            <div className="px-32 mt-2 text-lg h-full">
+                            </div>
 
-                {/* <textarea className="w-full h-screen border-primary border-2  rounded px-2 text-2xl" value={body} onChange={changeBody}>
+                            <div className="mt-2">
+                                Jam Created By: {
+                                    (state.creator) ? (<span>{state.creator.username}</span>) : (<span>{auth.authUser.username}</span>)
+                                }
+                            </div>
+                        </div>
+                        <div className="px-32 mt-2 text-lg h-full">
 
-                </textarea> */}
 
-                <Editor
-                    onInit={(evt, editor) => editorRef.current = editor}
-                    initialValue={state.body}
-                    value={body}
-                    onEditorChange={(val, e)=>{
-                        console.log("This has beeen called")
-                        socket.emit('new-change', { room: state.id, body: val })
-                        setBody(val)
-                        }
-                    }
-                    init={{
-                        height: 500,
-                        menubar: false,
-                        plugins: [
-                            'advlist autolink lists link image charmap print preview anchor',
-                            'searchreplace visualblocks code fullscreen',
-                            'insertdatetime media table paste code help wordcount'
-                        ],
-                        toolbar: 'undo redo | formatselect | ' +
-                            'bold italic backcolor | alignleft aligncenter ' +
-                            'alignright alignjustify | bullist numlist outdent indent | ' +
-                            'removeformat | help',
-                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                    }}
-                />
-            </div>
-            <div className="px-32 mt-8 flex justify-end">
-                {
-                    (auth.authUser.id === state.creator_id) ? (<button onClick={save} className="bg-primary px-4 py-2 text-lg text-white mr-4">
-                        SAVE
-                    </button>) : ("")
-                }
-                {
-                    (auth.authUser.id === state.creator_id) ? (<button onClick={publish} className="bg-primary px-4 py-2 text-lg text-white mr-4">
-                        PUBLISH
-                    </button>) : ("")
-                }
-            </div>
+
+                            <Editor
+                                onInit={(evt, editor) => editorRef.current = editor}
+                                initialValue={state.body}
+                                value={body}
+                                onEditorChange={(val, e) => {
+                                    console.log("This has beeen called")
+                                    socket.emit('new-change', { room: state.id, body: val })
+                                    setBody(val)
+                                }
+                                }
+                                init={{
+                                    height: 500,
+                                    menubar: false,
+                                    plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                    ],
+                                    toolbar: 'undo redo | formatselect | ' +
+                                        'bold italic backcolor | alignleft aligncenter ' +
+                                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                                        'removeformat | help',
+                                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                                }}
+                            />
+                        </div>
+                        <div className="px-32 mt-8 flex justify-end">
+                            {
+                                (auth.authUser.id === state.creator_id) ? (<button onClick={save} className="bg-primary px-4 py-2 text-lg text-white mr-4">
+                                    SAVE
+                                </button>) : ("")
+                            }
+                            {
+                                (auth.authUser.id === state.creator_id) ? (<button onClick={publish} className="bg-primary px-4 py-2 text-lg text-white mr-4">
+                                    PUBLISH
+                                </button>) : ("")
+                            }
+                        </div>
+                    </div>
+                ) : ("")
+            }
         </div>
     )
 }

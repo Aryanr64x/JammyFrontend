@@ -22,7 +22,7 @@ const SignUp = ({onSignInRequest}) => {
             if (passwordText === passwordRepeatText) {
                 const isSuccess = await auth.signUp(usernameText, emailText, passwordText, passwordRepeatText);
                 if (isSuccess) {
-                    navigate('/home');
+                    navigate('/published');
                 }
             }
 

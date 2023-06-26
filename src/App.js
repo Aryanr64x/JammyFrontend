@@ -11,7 +11,7 @@ function App() {
     <div className="">
         <Routes>
           <Route path="/" element={<Welcome />} />
-          <Route path='/home' element={<LiveJamPage />} />
+          <Route path='/live' element={<LiveJamPage />} />
           <Route path='/jam/:id' element={<JamPage />} />
           <Route path="/published" element={<PublishedJam />} />
         </Routes>

@@ -9,8 +9,22 @@ const AuthContextWrapper = ({ children }) => {
     //TODO:custom hook extraction
     const [token, setToken] = useState(null);
     const [authUser, setAuthUser] = useState(null)
+    useEffect(() => {
+        console.log("This is called")
+        setToken(localStorage.getItem('token'))
+        setAuthUser(JSON.parse(localStorage.getItem('user')))
+    }, [])
+
+    useEffect(()=>{
+
+    }, [token, authUser])
 
 
+
+    const putInLocalStorage = (token, user) => {
+        localStorage.setItem('token', token)
+        localStorage.setItem('user', JSON.stringify(user))
+    }
     
 
 
@@ -22,6 +36,7 @@ const AuthContextWrapper = ({ children }) => {
             console.log(resp.data.data.user)
             setToken(resp.data.data.token)
             setAuthUser(resp.data.data.user);
+            putInLocalStorage(resp.data.data.token, resp.data.data.user)
             return true;
         } catch (e) {
             console.log(e)
@@ -31,7 +46,8 @@ const AuthContextWrapper = ({ children }) => {
     }
 
     const signOut = () => {
-
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
         setToken(null)
         setAuthUser(null)
     }
@@ -44,6 +60,8 @@ const AuthContextWrapper = ({ children }) => {
             console.log(resp.data.data.user)
             setToken(resp.data.data.token)
             setAuthUser(resp.data.data.user);
+            putInLocalStorage(resp.data.data.token, resp.data.data.user)
+
             return true;
         } catch (e) {
             console.log(e)

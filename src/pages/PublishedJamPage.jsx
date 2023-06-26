@@ -11,8 +11,13 @@ const PublishedJam = () => {
     const auth = useContext(authContext)
     const [jams, setJams] = useState([])
     useEffect(() => {
-        getJams()
-    }, [])
+        console.log("This is called 2")
+        if(auth.token != null){
+            console.log("Happens")
+            getJams()
+        }
+
+    }, [auth.token])
 
     const getJams = async () => {
         const resp = await axios.get(BASE_URL + '/jam/published', {

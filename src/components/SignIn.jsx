@@ -14,7 +14,7 @@ const SignIn = ({onSignUpRequest}) => {
             if(emailText !== "" && passwordText !== ""){
                     const isSuccess = await auth.signIn(emailText, passwordText);
                     if(isSuccess){
-                        navigate('/home');
+                        navigate('/published');
                     }
             }
     }
