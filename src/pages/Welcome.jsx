@@ -1,12 +1,16 @@
+import { useContext, useEffect } from "react";
 import Authentication from "../components/Authentication";
+import { socketContext } from "../contexts/SocketContextWrapper";
 
 const Welcome = () => {
+
+
     return (
         <div className="bg-primary h-screen text-white grid grid-cols-2 px-32">
             <div className="flex flex-col justify-center items-center">
 
                 <div className="text-9xl">
-                    JAMMY
+                    JAMMY 
                 </div>
                 <div className="text-2xl text-center mt-8">
                     Jammy is the one stop destination for your
