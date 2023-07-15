@@ -10,7 +10,7 @@ const SinglePublishedJam = ({jam})=>{
                     published by <span className="font-semibold">{ jam.creator.username }</span>
                 </div>
             </div>
-            <div className="text-lg" dangerouslySetInnerHTML={{__html:  jam.body}}>
+            <div className="text-lg" dangerouslySetInnerHTML={{__html:  jam.shortBody}}>
                
             </div>
         </div>
