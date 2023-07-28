@@ -6,7 +6,7 @@ export const socketContext = React.createContext();
 const SocketContextWrapper = ({ children }) => {
     const [socket, setSocket] = useState(null)
     useEffect(()=>{
-        const s = io('https://jammy-backend.onrender.com/');
+        const s = io('https://jammy-backend.onrender.com');
         setSocket(s)
     }, [])
     return (
