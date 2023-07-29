@@ -94,9 +94,12 @@ const JamPage = () => {
                                 initialValue={state.body}
                                 value={body}
                                 onEditorChange={(val, e) => {
-                                    console.log("This has beeen called")
-                                    socket.emit('new-change', { room: state.id, body: val })
-                                    setBody(val)
+                                   
+                                    if(body !== val){
+                                        console.log("This has beeen called")
+                                        socket.emit('new-change', { room: state.id, body: val })
+                                        setBody(val)
+                                    }
                                 }
                                 }
                                 init={{
