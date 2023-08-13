@@ -8,6 +8,9 @@ module.exports = {
       colors: {
         primary: "#0a2e36",
         secondary: "#ADE4F0"
+      },
+      fontFamily:{
+        borel: ['Borel', 'cursive']
       }
     },
   },

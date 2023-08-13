@@ -7,6 +7,7 @@ const SocketContextWrapper = ({ children }) => {
     const [socket, setSocket] = useState(null)
     useEffect(()=>{
         const s = io('https://jammy-backend.onrender.com');
+        // const s  = io('http://127.0.0.1:8000')
         setSocket(s)
     }, [])
     return (

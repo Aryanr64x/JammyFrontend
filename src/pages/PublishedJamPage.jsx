@@ -30,10 +30,10 @@ const PublishedJam = () => {
     }
     return <div>
         <Navbar />
-        <div className="mt-8 text-xl font-bold px-32">
-            Latest Published Jams..
+        <div className="mt-8 text-3xl font-bold px-32">
+            Latest Published Jams
         </div>
-        <div className="mt-8 px-32">
+        <div className="mt-4 px-32 ">
             {
                 jams.map((jam) => {
                     return <SinglePublishedJam jam={jam} key={jam.id} />

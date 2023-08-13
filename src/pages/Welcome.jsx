@@ -12,14 +12,14 @@ const Welcome = () => {
       }, [])
 
     return (
-        <div className="bg-primary h-screen text-white grid grid-cols-1 lg:grid-cols-2 px-4 sm:px-12 md:px-24 lg:px-32">
+        <div className="bg-primary   text-white grid grid-cols-1 lg:grid-cols-2 px-4 sm:px-12 md:px-24 lg:px-32 hero">
             
             <div className="flex flex-col justify-center items-center lg:items-start ">
 
-                <div className="text-9xl" data-aos="fade-right" >
-                    JAMMY 
+                <div className="text-9xl font-borel" data-aos="fade-right " >
+                    Jammy 
                 </div>
-                <div className="text-xl text-center lg:text-left mt-4 font-light" data-aos="fade-right" data-aos-delay="200">
+                <div className="text-xl text-center lg:text-left  font-light" data-aos="fade-right" data-aos-delay="200">
                     Jammy is the one stop destination for your
                     friends to collab and publish something creative !
                 </div>

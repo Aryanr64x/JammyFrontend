@@ -8,10 +8,12 @@ import { Editor } from '@tinymce/tinymce-react';
 import { BASE_URL } from "../BASE_URL";
 
 const JamPage = () => {
+
     const { state } = useLocation();
     const socket = useContext(socketContext);
     const auth = useContext(authContext)
     const [body, setBody] = useState("")
+    const [contributers, setContributers] = useState([])
     const navigate = useNavigate()
     const editorRef = useRef(null)
 
@@ -20,7 +22,15 @@ const JamPage = () => {
             navigate('/published')
             return
         }
+
+
         setBody(state.body);
+        setContributers(state.contributers)
+
+        socket.on('new-contributer', (user) => {
+            console.log('user recieved ' + user.username)
+            setContributers([...contributers, user]);
+        })
 
         socket.on("tell-client", (b) => {
             console.log("The client has been recieved")
@@ -40,8 +50,7 @@ const JamPage = () => {
                     Authorization: "Bearer " + auth.token
                 }
             })
-            console.log(resp.data)
-            console.log("Your post has been saved")
+
 
 
         } catch (e) {
@@ -73,15 +82,30 @@ const JamPage = () => {
             {
                 (state) ? (
                     <div>
-                        <div className="px-32 text-xl mt-12">
-                            Hello Everyone! Welcome To
-                            <div className="font-bold text-5xl">
-
+                        <div className="px-32  mt-12">
+                            <div className="">
+                                Hello folks! Welcome To
+                            </div>
+                            <div className="font-bold text-5xl mt-8 font-borel">
+                                {state.title}
                             </div>
 
                             <div className="mt-2">
                                 Jam Created By: {
                                     (state.creator) ? (<span>{state.creator.username}</span>) : (<span>{auth.authUser.username}</span>)
+                                }
+                            </div>
+                            <div>
+                                Contributers: {
+                                    (contributers.length === 0) ? (<span>No Contributers yet</span>) : (
+                                        <div>
+                                            {
+                                                (contributers.map((user) => {
+                                                    return <span className="mr-2">{user.username} , </span>
+                                                }))
+                                            }
+                                        </div>
+                                    )
                                 }
                             </div>
                         </div>
@@ -94,8 +118,8 @@ const JamPage = () => {
                                 initialValue={state.body}
                                 value={body}
                                 onEditorChange={(val, e) => {
-                                   
-                                    if(body !== val){
+
+                                    if (body !== val) {
                                         console.log("This has beeen called")
                                         socket.emit('new-change', { room: state.id, body: val })
                                         setBody(val)

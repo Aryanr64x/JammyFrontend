@@ -28,7 +28,7 @@ const LiveJamPage = () => {
         <Navbar />
         <CreateJam />
         <div className="mt-8 px-32">
-            <h3 className="text-2xl">Live Jams....</h3>
+            <h3 className="text-2xl">Here is the list of all Live Jams</h3>
         </div>
         <div className="px-32">
             {

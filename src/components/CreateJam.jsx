@@ -25,7 +25,12 @@ const CreateJam = () => {
                 
                 console.log("THIS IS PRINTED OUT")
                 console.log(resp.data)
-                socket.emit('join-room', resp.data.id);
+                socket.emit('join-room', {
+                    jamId: resp.data.id,
+                    userExists: 0,
+                    isCreator: 1,
+                    userId: auth.authUser.id
+                });
                 navigate('/jam/'+resp.data.id, {state: resp.data});
                 
             } catch (e) {
