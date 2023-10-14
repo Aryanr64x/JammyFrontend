@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 const SinglePublishedJam = ({ jam }) => {
     const nav = useNavigate();
+    console.log(jam)
 
     return (
         <div className="mb-8 bg-slate-100 px-4 py-4 rounded-sm">

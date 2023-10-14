@@ -6,33 +6,17 @@ import { BASE_URL } from "../BASE_URL";
 import { authContext } from "../contexts/AuthContextWrapper";
 import SingleJam from "../components/SingleJam";
 import SinglePublishedJam from "../components/SInglePublishedJam";
+import useJams from "../hooks/useJams";
 
 const PublishedJam = () => {
     const auth = useContext(authContext)
-    const [jams, setJams] = useState([])
-    useEffect(() => {
-        console.log("This is called 2")
-        if(auth.token != null){
-            console.log("Happens")
-            getJams()
-        }
-
-    }, [auth.token])
-
-    const getJams = async () => {
-        const resp = await axios.get(BASE_URL + '/jam/published', {
-            headers: {
-                Authorization: "Bearer " + auth.token
-            }
-        })
-
-        setJams(resp.data)
-    }
+    const [jams] = useJams(auth, false)
     return <div>
         <Navbar />
         <div className="mt-8 text-3xl font-bold px-32">
             Latest Published Jams
         </div>
+        
         <div className="mt-4 px-32 ">
             {
                 jams.map((jam) => {

@@ -98,13 +98,13 @@ const JamPage = () => {
                             <div>
                                 Contributers: {
                                     (contributers.length === 0) ? (<span>No Contributers yet</span>) : (
-                                        <div>
+                                        <span>
                                             {
                                                 (contributers.map((user) => {
                                                     return <span className="mr-2">{user.username} , </span>
                                                 }))
                                             }
-                                        </div>
+                                        </span>
                                     )
                                 }
                             </div>

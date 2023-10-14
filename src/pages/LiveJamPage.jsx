@@ -5,24 +5,12 @@ import axios from "axios";
 import { BASE_URL } from "../BASE_URL";
 import { authContext } from "../contexts/AuthContextWrapper";
 import SingleJam from "../components/SingleJam";
+import useJams from "../hooks/useJams";
 
 const LiveJamPage = () => {
 
     const auth = useContext(authContext)
-    const [jams, setJams] = useState([])
-    useEffect(() => {
-        getJams()
-    }, [])
-
-    const getJams = async () => {
-        const resp = await axios.get(BASE_URL + '/jam/live', {
-            headers: {
-                Authorization: "Bearer " + auth.token
-            }
-        })
-
-        setJams(resp.data)
-    }
+    const [jams] = useJams(auth, true)
 
     return <div>
         <Navbar />
